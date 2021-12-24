@@ -12,18 +12,20 @@ class ImageIndex {
 
   getIndex = () => this.index
 
-  indexFiles = (directory) => {
+  indexFiles = (directory) => { // directory: string
     const files = fs.readdirSync(directory)
 
     files.forEach(file => {
+      const filePath = `${directory}\\${file}`
+
       if (this.index[file]) {
-        this.index[file].push(`${directory}\\${file}`)
+        this.index[file].push(filePath)
       } else if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
-        this.index[file] = [`${directory}\\${file}`]
+        this.index[file] = [filePath]
       }
 
-      if (fs.lstatSync(`${directory}\\${file}`).isDirectory())
-        this.indexFiles(`${directory}\\${file}`)
+      if (fs.lstatSync(filePath).isDirectory())
+        this.indexFiles(filePath)
     })
   }
 }
