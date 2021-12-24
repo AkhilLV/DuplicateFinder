@@ -29,5 +29,3 @@ class ImageIndex {
 }
 
 export default ImageIndex
-
-// test commit
