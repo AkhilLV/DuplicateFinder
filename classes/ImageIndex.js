@@ -1,4 +1,5 @@
-import fs from "fs"
+const fs = require('fs')
+const path = require('path')
 
 class ImageIndex {
   constructor(directories) { // directories: array
@@ -7,7 +8,7 @@ class ImageIndex {
     this.duplicateImages = {}
 
     this.directories.forEach((directory) => {
-      this.indexFiles(directory)
+      this.indexFiles(path.normalize(directory))
     })
   }
 
@@ -18,7 +19,7 @@ class ImageIndex {
     const files = fs.readdirSync(directory)
 
     files.forEach(file => {
-      const filePath = `${directory}\\${file}`
+      const filePath = path.normalize(`${directory}/${file}`)
 
       if (this.index[file]) {
         this.index[file].push(filePath)
@@ -33,4 +34,4 @@ class ImageIndex {
   }
 }
 
-export default ImageIndex
+module.exports = ImageIndex

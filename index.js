@@ -4,11 +4,11 @@ import ImageIndex from "./classes/ImageIndex.js"
 
 const index = new ImageIndex(["H:\\Photos"])
 
-fs.writeFile("./images.json", JSON.stringify(index.getDuplicateImages()), (err) => {
-  if (err) { return console.log(err) }
+// fs.writeFile("./images.json", JSON.stringify(index.getDuplicateImages()), (err) => {
+//   if (err) { return console.log(err) }
 
-  console.log("File saved")
-})
+//   console.log("File saved")
+// })
 
 
 // index.deleteDuplicates()
