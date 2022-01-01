@@ -1,5 +1,5 @@
 import dom from "./browser-js/dom";
-import generateSelectedDirectories from "./browser-js/generator";
+import generateSelectedDirectoriesHTML from "./browser-js/generator";
 
 // eslint-disable-next-line no-shadow
 const setupEventListeners = (dom) => {
@@ -17,7 +17,7 @@ const directories = [];
 // eslint-disable-next-line no-undef
 window.api.receive("fromMain", (data) => {
   directories.push(...data.filePaths);
-  generateSelectedDirectories(directories, dom.selectedDirectoriesDisplay);
+  generateSelectedDirectoriesHTML(directories, dom.selectedDirectoriesDisplay);
 });
 
 // Structure:

@@ -1,4 +1,4 @@
-const generateSelectedDirectories = (directories, domElement) => {
+const generateSelectedDirectoriesHTML = (directories, domElement) => {
   let HTML = "";
   directories.forEach((directory) => {
     HTML += `<p>${directory}</p>`;
@@ -9,4 +9,4 @@ const generateSelectedDirectories = (directories, domElement) => {
   domElement.insertAdjacentHTML("beforeend", HTML);
 };
 
-export default generateSelectedDirectories;
+export default generateSelectedDirectoriesHTML;
