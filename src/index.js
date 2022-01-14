@@ -9,9 +9,9 @@ import {
 import { join } from "path";
 
 // eslint-disable-next-line global-require
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
+// if (import("electron-squirrel-startup")) {
+//   app.quit();
+// }
 
 let mainWindow;
 const createWindow = () => {

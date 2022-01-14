@@ -15,8 +15,8 @@ setupEventListeners(dom);
 const directories = [];
 
 // eslint-disable-next-line no-undef
-window.api.receive("fromMain", (data) => {
-  directories.push(...data.filePaths);
+window.api.receive("fromMain", (files) => {
+  directories.push(...files.filePaths);
   generateSelectedDirectoriesHTML(directories, dom.selectedDirectoriesDisplay);
 });
 

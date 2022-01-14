@@ -5,7 +5,7 @@ const generateSelectedDirectoriesHTML = (directories, domElement) => {
   });
 
   // eslint-disable-next-line no-param-reassign
-  domElement.insertAdjacentHTML = "";
+  domElement.innerHTML = "";
   domElement.insertAdjacentHTML("beforeend", HTML);
 };
 
