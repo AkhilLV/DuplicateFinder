@@ -1,5 +1,5 @@
-import { readdirSync, lstatSync } from "fs";
-import { normalize } from "path";
+const { readdirSync, lstatSync } = require("fs");
+const { normalize } = require("path");
 
 class ImageIndex {
   constructor(directories) { // directories: array
@@ -36,4 +36,4 @@ class ImageIndex {
   };
 }
 
-export default ImageIndex;
+module.exports = ImageIndex;

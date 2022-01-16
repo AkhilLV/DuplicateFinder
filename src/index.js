@@ -1,17 +1,19 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
+const {
   app,
   BrowserWindow,
   dialog,
   ipcMain,
-} from "electron";
+// eslint-disable-next-line import/no-extraneous-dependencies
+} = require("electron");
 
-import { join } from "path";
+const { join } = require("path");
+
+const ImageIndex = require("./classes/ImageIndex");
 
 // eslint-disable-next-line global-require
-// if (import("electron-squirrel-startup")) {
-//   app.quit();
-// }
+if (require("electron-squirrel-startup")) {
+  app.quit();
+}
 
 let mainWindow;
 const createWindow = () => {
@@ -43,11 +45,17 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("toMain", async () => {
-  // Do what you need to do with node.js
-  const result = await dialog.showOpenDialog(mainWindow, {
+ipcMain.on("getDirectoryPaths", async () => {
+  const directoryPath = await dialog.showOpenDialog(mainWindow, {
     properties: ["openDirectory"],
   });
 
-  mainWindow.webContents.send("fromMain", result);
+  mainWindow.webContents.send("directoryPaths", directoryPath);
+});
+
+ipcMain.on("getSearchResults", (event, directories) => {
+  console.log(directories);
+  const index = new ImageIndex(directories);
+
+  mainWindow.webContents.send("searchResults", index.getDuplicateImages());
 });
