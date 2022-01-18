@@ -12,19 +12,16 @@ export const generateSelectedDirectoriesHTML = (directories) => {
 
 export const generateSearchResultsHTML = (searchResults) => {
   let HTML = "";
-  // eslint-disable-next-line no-restricted-syntax
-  for (const fileName in searchResults) {
-    if (Object.prototype.hasOwnProperty.call(searchResults, fileName)) {
-      HTML += `
-      <div class="duplicate-file">
-        <p class="file-name"><strong>${fileName}</strong></p>
-        <div class="duplicate-file-paths">
-          ${searchResults[fileName].map((filePath) => `<p class="file-path">${filePath}</p>`).join("")}
-        </div>
+  Object.keys(searchResults).forEach((imageName) => {
+    HTML += `
+    <div class="duplicate-image">
+      <p class="image-name"><strong>${imageName}</strong></p>
+      <div class="duplicate-image-paths">
+        ${searchResults[imageName].map((imagePath) => `<p class="image-path">${imagePath}</p>`).join("")}
       </div>
-    `;
-    }
-  }
+    </div>
+  `;
+  });
 
   dom.searchResultsDisplay.innerHTML = "";
   dom.searchResultsDisplay.insertAdjacentHTML("beforeend", HTML);

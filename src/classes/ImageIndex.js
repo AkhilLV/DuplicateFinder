@@ -1,4 +1,4 @@
-const { readdirSync, lstatSync } = require("fs");
+const { readdirSync, lstatSync, unlink } = require("fs");
 const { normalize } = require("path");
 
 class ImageIndex {
@@ -15,6 +15,22 @@ class ImageIndex {
   getIndex = () => this.index;
 
   getDuplicateImages = () => this.duplicateImages;
+
+  deleteDuplicateImages = () => {
+    Object.keys(this.duplicateImages).forEach((imageName) => {
+      this.duplicateImages[imageName].forEach((index, imagePath) => {
+        if (index > 0) { // keep the first image
+          unlink(imagePath, (error) => {
+            console.log(error);
+          });
+        }
+      });
+    });
+  };
+
+  deleteDuplicateImage = (filePath) => {
+
+  };
 
   indexFiles = (directory) => { // directory: string
     const files = readdirSync(directory);

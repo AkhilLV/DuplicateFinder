@@ -1,17 +1,17 @@
 import dom from "./dom";
 import {
-  requestDirectoryPath,
+  getDirectoryPath,
   populateDirectoriesDisplay,
-  requestSearchResults,
+  getSearchResults,
   populateSearchResultsDisplay,
 } from "./eventHandler";
 
 // eslint-disable-next-line no-shadow
 const setupEventListeners = (dom) => {
-  dom.selectDirectoryBtn.addEventListener("click", requestDirectoryPath);
-  window.api.receive("directoryPaths", populateDirectoriesDisplay);
+  dom.selectDirectoryBtn.addEventListener("click", getDirectoryPath);
+  window.api.receive("directoryPath", populateDirectoriesDisplay);
 
-  dom.searchDirectoriesBtn.addEventListener("click", requestSearchResults);
+  dom.searchDirectoriesBtn.addEventListener("click", getSearchResults);
   window.api.receive("searchResults", populateSearchResultsDisplay);
 };
 

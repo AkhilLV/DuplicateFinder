@@ -2,8 +2,8 @@ import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "./ge
 
 import directories from "./directories"; // directories: array
 
-export const requestDirectoryPath = () => {
-  window.api.send("getDirectoryPaths", null);
+export const getDirectoryPath = () => {
+  window.api.send("getDirectoryPath", null);
 };
 
 export const populateDirectoriesDisplay = (files) => {
@@ -11,7 +11,7 @@ export const populateDirectoriesDisplay = (files) => {
   generateSelectedDirectoriesHTML(directories);
 };
 
-export const requestSearchResults = () => {
+export const getSearchResults = () => {
   console.log(directories);
   if (directories.length === 0) { return alert("Select directory(s) to search"); }
   window.api.send("getSearchResults", directories);

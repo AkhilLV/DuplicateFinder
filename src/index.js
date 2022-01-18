@@ -45,12 +45,12 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("getDirectoryPaths", async () => {
+ipcMain.on("getDirectoryPath", async () => {
   const directoryPath = await dialog.showOpenDialog(mainWindow, {
     properties: ["openDirectory"],
   });
 
-  mainWindow.webContents.send("directoryPaths", directoryPath);
+  mainWindow.webContents.send("directoryPath", directoryPath);
 });
 
 ipcMain.on("getSearchResults", (event, directories) => {
