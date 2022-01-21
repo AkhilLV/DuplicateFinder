@@ -8,8 +8,13 @@ import {
 
 // eslint-disable-next-line no-shadow
 const setupEventListeners = (dom) => {
-  dom.selectDirectoryBtn.addEventListener("click", getDirectoryPath);
-  window.api.receive("directoryPath", populateDirectoriesDisplay);
+  dom.selectDirectoryBtn.addEventListener("click", () => {
+    getDirectoryPath();
+  });
+
+  window.api.receive("directoryPath", (directoryPath) => {
+    populateDirectoriesDisplay(directoryPath);
+  });
 
   dom.searchDirectoriesBtn.addEventListener("click", getSearchResults);
   window.api.receive("searchResults", populateSearchResultsDisplay);

@@ -46,10 +46,11 @@ app.on("activate", () => {
 });
 
 ipcMain.on("getDirectoryPath", async () => {
-  const directoryPath = await dialog.showOpenDialog(mainWindow, {
+  const files = await dialog.showOpenDialog(mainWindow, { // files {cancelled, filePaths}
     properties: ["openDirectory"],
   });
 
+  const directoryPath = files.filePaths[0];
   mainWindow.webContents.send("directoryPath", directoryPath);
 });
 
