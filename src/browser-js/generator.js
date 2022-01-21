@@ -1,13 +1,10 @@
-import dom from "./dom";
-
 export const generateSelectedDirectoriesHTML = (directories) => {
   let HTML = "";
   directories.forEach((directory) => {
     HTML += `<p>${directory}</p>`;
   });
 
-  dom.selectedDirectoriesDisplay.innerHTML = "";
-  dom.selectedDirectoriesDisplay.insertAdjacentHTML("beforeend", HTML);
+  return HTML;
 };
 
 export const generateSearchResultsHTML = (searchResults) => {
@@ -23,6 +20,5 @@ export const generateSearchResultsHTML = (searchResults) => {
   `;
   });
 
-  dom.searchResultsDisplay.innerHTML = "";
-  dom.searchResultsDisplay.insertAdjacentHTML("beforeend", HTML);
+  return HTML;
 };

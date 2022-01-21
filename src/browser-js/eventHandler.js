@@ -1,3 +1,4 @@
+import dom from "./dom";
 import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "./generator";
 
 import directories from "./directories"; // directories: array
@@ -8,16 +9,22 @@ export const getDirectoryPath = () => {
 
 export const populateDirectoriesDisplay = (files) => {
   directories.push(...files.filePaths);
-  generateSelectedDirectoriesHTML(directories);
+
+  const HTML = generateSelectedDirectoriesHTML(directories);
+  dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
 };
 
 export const getSearchResults = () => {
-  console.log(directories);
-  if (directories.length === 0) { return alert("Select directory(s) to search"); }
+  if (directories.length === 0) {
+    // eslint-disable-next-line no-alert
+    alert("Select directory(s) to search");
+    return;
+  }
+
   window.api.send("getSearchResults", directories);
 };
 
 export const populateSearchResultsDisplay = (searchResults) => {
-  console.log(searchResults);
-  generateSearchResultsHTML(searchResults);
+  const HTML = generateSearchResultsHTML(searchResults);
+  dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
 };
