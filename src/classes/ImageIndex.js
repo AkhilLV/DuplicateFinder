@@ -21,6 +21,7 @@ class ImageIndex {
       this.duplicateImages[imageName].forEach((index, imagePath) => {
         if (index > 0) { // keep the first image
           unlink(imagePath, (error) => {
+            // eslint-disable-next-line no-console
             console.log(error);
           });
         }

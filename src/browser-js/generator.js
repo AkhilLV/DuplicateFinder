@@ -1,3 +1,4 @@
+// maybe use reduce here?
 export const generateSelectedDirectoriesHTML = (directories) => {
   let HTML = "";
   directories.forEach((directory) => {

@@ -57,25 +57,16 @@ const dom = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getDirectoryPath": () => (/* binding */ getDirectoryPath),
-/* harmony export */   "populateDirectoriesDisplay": () => (/* binding */ populateDirectoriesDisplay),
 /* harmony export */   "getSearchResults": () => (/* binding */ getSearchResults),
-/* harmony export */   "populateSearchResultsDisplay": () => (/* binding */ populateSearchResultsDisplay)
+/* harmony export */   "populateDOMElement": () => (/* binding */ populateDOMElement)
 /* harmony export */ });
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
-/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generator */ "./src/browser-js/generator.js");
-
 
 
 const getDirectoryPath = () => {
   window.api.send("getDirectoryPath", null);
 };
 
-const populateDirectoriesDisplay = (directories) => {
-  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(directories);
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].clearAndInsertHTML(_dom__WEBPACK_IMPORTED_MODULE_0__["default"].selectedDirectoriesDisplay, HTML);
-};
-
-// take in directories as a param (research)
 const getSearchResults = (directories) => {
   if (directories.size === 0) {
     // eslint-disable-next-line no-alert
@@ -86,9 +77,8 @@ const getSearchResults = (directories) => {
   window.api.send("getSearchResults", directories);
 };
 
-const populateSearchResultsDisplay = (searchResults) => {
-  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSearchResultsHTML)(searchResults);
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].clearAndInsertHTML(_dom__WEBPACK_IMPORTED_MODULE_0__["default"].searchResultsDisplay, HTML);
+const populateDOMElement = (domElement, HTML) => {
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].clearAndInsertHTML(domElement, HTML);
 };
 
 
@@ -105,6 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "generateSelectedDirectoriesHTML": () => (/* binding */ generateSelectedDirectoriesHTML),
 /* harmony export */   "generateSearchResultsHTML": () => (/* binding */ generateSearchResultsHTML)
 /* harmony export */ });
+// maybe use reduce here?
 const generateSelectedDirectoriesHTML = (directories) => {
   let HTML = "";
   directories.forEach((directory) => {
@@ -199,6 +190,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
 /* harmony import */ var _directories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./directories */ "./src/browser-js/directories.js");
 /* harmony import */ var _eventHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./eventHandler */ "./src/browser-js/eventHandler.js");
+/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./generator */ "./src/browser-js/generator.js");
+
 
 
 
@@ -212,14 +205,18 @@ const setupEventListeners = (dom) => {
   window.api.receive("directoryPath", (directoryPath) => {
     _directories__WEBPACK_IMPORTED_MODULE_1__["default"].add(directoryPath);
 
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateDirectoriesDisplay)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_3__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateDOMElement)(dom.selectedDirectoriesDisplay, HTML);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
     (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.getSearchResults)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
   });
 
-  window.api.receive("searchResults", _eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateSearchResultsDisplay);
+  window.api.receive("searchResults", (searchResults) => {
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_3__.generateSearchResultsHTML)(searchResults);
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateDOMElement)(dom.searchResultsDisplay, HTML);
+  });
 };
 
 setupEventListeners(_dom__WEBPACK_IMPORTED_MODULE_0__["default"]);
