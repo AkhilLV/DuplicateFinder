@@ -63,33 +63,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
 /* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generator */ "./src/browser-js/generator.js");
-/* harmony import */ var _directories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./directories */ "./src/browser-js/directories.js");
 
 
-
- // directories: array
 
 const getDirectoryPath = () => {
   window.api.send("getDirectoryPath", null);
 };
 
-// this function does two things
-const populateDirectoriesDisplay = (directoryPath) => {
-  _directories__WEBPACK_IMPORTED_MODULE_2__["default"].add(directoryPath);
-
-  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_2__["default"]);
+const populateDirectoriesDisplay = (directories) => {
+  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(directories);
   _dom__WEBPACK_IMPORTED_MODULE_0__["default"].clearAndInsertHTML(_dom__WEBPACK_IMPORTED_MODULE_0__["default"].selectedDirectoriesDisplay, HTML);
 };
 
 // take in directories as a param (research)
-const getSearchResults = () => {
-  if (_directories__WEBPACK_IMPORTED_MODULE_2__["default"].size === 0) {
+const getSearchResults = (directories) => {
+  if (directories.size === 0) {
     // eslint-disable-next-line no-alert
     alert("Select directory(s) to search");
     return;
   }
 
-  window.api.send("getSearchResults", _directories__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  window.api.send("getSearchResults", directories);
 };
 
 const populateSearchResultsDisplay = (searchResults) => {
@@ -203,22 +197,29 @@ var __webpack_exports__ = {};
   \**********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
-/* harmony import */ var _eventHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./eventHandler */ "./src/browser-js/eventHandler.js");
+/* harmony import */ var _directories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./directories */ "./src/browser-js/directories.js");
+/* harmony import */ var _eventHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./eventHandler */ "./src/browser-js/eventHandler.js");
+
 
 
 
 // eslint-disable-next-line no-shadow
 const setupEventListeners = (dom) => {
   dom.selectDirectoryBtn.addEventListener("click", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.getDirectoryPath)();
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.getDirectoryPath)();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.populateDirectoriesDisplay)(directoryPath);
+    _directories__WEBPACK_IMPORTED_MODULE_1__["default"].add(directoryPath);
+
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateDirectoriesDisplay)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
   });
 
-  dom.searchDirectoriesBtn.addEventListener("click", _eventHandler__WEBPACK_IMPORTED_MODULE_1__.getSearchResults);
-  window.api.receive("searchResults", _eventHandler__WEBPACK_IMPORTED_MODULE_1__.populateSearchResultsDisplay);
+  dom.searchDirectoriesBtn.addEventListener("click", () => {
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.getSearchResults)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
+  });
+
+  window.api.receive("searchResults", _eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateSearchResultsDisplay);
 };
 
 setupEventListeners(_dom__WEBPACK_IMPORTED_MODULE_0__["default"]);

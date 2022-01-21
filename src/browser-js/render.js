@@ -1,4 +1,5 @@
 import dom from "./dom";
+import directories from "./directories";
 import {
   getDirectoryPath,
   populateDirectoriesDisplay,
@@ -13,10 +14,15 @@ const setupEventListeners = (dom) => {
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    populateDirectoriesDisplay(directoryPath);
+    directories.add(directoryPath);
+
+    populateDirectoriesDisplay(directories);
   });
 
-  dom.searchDirectoriesBtn.addEventListener("click", getSearchResults);
+  dom.searchDirectoriesBtn.addEventListener("click", () => {
+    getSearchResults(directories);
+  });
+
   window.api.receive("searchResults", populateSearchResultsDisplay);
 };
 
