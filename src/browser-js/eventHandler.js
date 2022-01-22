@@ -1,5 +1,3 @@
-import dom from "./dom";
-
 export const getDirectoryPath = () => {
   window.api.send("getDirectoryPath", null);
 };
@@ -12,8 +10,4 @@ export const getSearchResults = (directories) => {
   }
 
   window.api.send("getSearchResults", directories);
-};
-
-export const populateDOMElement = (domElement, HTML) => {
-  dom.clearAndInsertHTML(domElement, HTML);
 };

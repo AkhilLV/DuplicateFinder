@@ -57,12 +57,8 @@ const dom = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getDirectoryPath": () => (/* binding */ getDirectoryPath),
-/* harmony export */   "getSearchResults": () => (/* binding */ getSearchResults),
-/* harmony export */   "populateDOMElement": () => (/* binding */ populateDOMElement)
+/* harmony export */   "getSearchResults": () => (/* binding */ getSearchResults)
 /* harmony export */ });
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
-
-
 const getDirectoryPath = () => {
   window.api.send("getDirectoryPath", null);
 };
@@ -75,10 +71,6 @@ const getSearchResults = (directories) => {
   }
 
   window.api.send("getSearchResults", directories);
-};
-
-const populateDOMElement = (domElement, HTML) => {
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].clearAndInsertHTML(domElement, HTML);
 };
 
 
@@ -206,7 +198,7 @@ const setupEventListeners = (dom) => {
     _directories__WEBPACK_IMPORTED_MODULE_1__["default"].add(directoryPath);
 
     const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_3__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateDOMElement)(dom.selectedDirectoriesDisplay, HTML);
+    dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
@@ -215,7 +207,7 @@ const setupEventListeners = (dom) => {
 
   window.api.receive("searchResults", (searchResults) => {
     const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_3__.generateSearchResultsHTML)(searchResults);
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.populateDOMElement)(dom.searchResultsDisplay, HTML);
+    dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
   });
 };
 

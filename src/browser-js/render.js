@@ -3,7 +3,6 @@ import directories from "./directories";
 import {
   getDirectoryPath,
   getSearchResults,
-  populateDOMElement,
 } from "./eventHandler";
 import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "./generator";
 
@@ -17,7 +16,7 @@ const setupEventListeners = (dom) => {
     directories.add(directoryPath);
 
     const HTML = generateSelectedDirectoriesHTML(directories);
-    populateDOMElement(dom.selectedDirectoriesDisplay, HTML);
+    dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
@@ -26,7 +25,7 @@ const setupEventListeners = (dom) => {
 
   window.api.receive("searchResults", (searchResults) => {
     const HTML = generateSearchResultsHTML(searchResults);
-    populateDOMElement(dom.searchResultsDisplay, HTML);
+    dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
   });
 };
 
