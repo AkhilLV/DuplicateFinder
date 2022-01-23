@@ -12,7 +12,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-const directories = new Set();
+class Directories {
+  constructor() {
+    this.directories = new Set();
+  }
+
+  getDirectories = () => this.directories;
+
+  addDirectory = (directoryPath) => this.directories.add(directoryPath);
+}
+
+const directories = new Directories();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (directories);
 
@@ -85,13 +95,13 @@ const handleSelectDirectoryClick = () => {
 };
 
 const handleSearchDirectoriesClick = () => {
-  getSearchResults(_directories__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  getSearchResults(_directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
 };
 
 const handleDirectoryPathRecieve = (directoryPath, dom) => {
-  _directories__WEBPACK_IMPORTED_MODULE_0__["default"].add(directoryPath);
+  _directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
 
-  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
   dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
 };
 

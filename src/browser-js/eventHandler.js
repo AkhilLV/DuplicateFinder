@@ -21,13 +21,13 @@ export const handleSelectDirectoryClick = () => {
 };
 
 export const handleSearchDirectoriesClick = () => {
-  getSearchResults(directories);
+  getSearchResults(directories.getDirectories());
 };
 
 export const handleDirectoryPathRecieve = (directoryPath, dom) => {
-  directories.add(directoryPath);
+  directories.addDirectory(directoryPath);
 
-  const HTML = generateSelectedDirectoriesHTML(directories);
+  const HTML = generateSelectedDirectoriesHTML(directories.getDirectories());
   dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
 };
 
