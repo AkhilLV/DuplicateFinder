@@ -9,7 +9,6 @@ const dom = {
     domElement.innerHTML = "";
     domElement.insertAdjacentHTML("beforeend", HTML);
   },
-
 };
 
 export default dom;

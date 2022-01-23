@@ -40,7 +40,6 @@ const dom = {
     domElement.innerHTML = "";
     domElement.insertAdjacentHTML("beforeend", HTML);
   },
-
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dom);
@@ -56,13 +55,21 @@ const dom = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getDirectoryPath": () => (/* binding */ getDirectoryPath),
-/* harmony export */   "getSearchResults": () => (/* binding */ getSearchResults)
+/* harmony export */   "handleSelectDirectoryClick": () => (/* binding */ handleSelectDirectoryClick),
+/* harmony export */   "handleSearchDirectoriesClick": () => (/* binding */ handleSearchDirectoriesClick),
+/* harmony export */   "handleDirectoryPathRecieve": () => (/* binding */ handleDirectoryPathRecieve),
+/* harmony export */   "handleSearchResultsRecieve": () => (/* binding */ handleSearchResultsRecieve)
 /* harmony export */ });
+/* harmony import */ var _directories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./directories */ "./src/browser-js/directories.js");
+/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generator */ "./src/browser-js/generator.js");
+
+
+
 const getDirectoryPath = () => {
-  window.api.send("getDirectoryPath", null);
+  window.api.send("getDirectoryPath", null); // send (channel, data)
 };
 
+// eslint-disable-next-line no-shadow
 const getSearchResults = (directories) => {
   if (directories.size === 0) {
     // eslint-disable-next-line no-alert
@@ -71,6 +78,26 @@ const getSearchResults = (directories) => {
   }
 
   window.api.send("getSearchResults", directories);
+};
+
+const handleSelectDirectoryClick = () => {
+  getDirectoryPath();
+};
+
+const handleSearchDirectoriesClick = () => {
+  getSearchResults(_directories__WEBPACK_IMPORTED_MODULE_0__["default"]);
+};
+
+const handleDirectoryPathRecieve = (directoryPath, dom) => {
+  _directories__WEBPACK_IMPORTED_MODULE_0__["default"].add(directoryPath);
+
+  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
+};
+
+const handleSearchResultsRecieve = (searchResults, dom) => {
+  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSearchResultsHTML)(searchResults);
+  dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
 };
 
 
@@ -88,6 +115,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "generateSearchResultsHTML": () => (/* binding */ generateSearchResultsHTML)
 /* harmony export */ });
 // maybe use reduce here?
+// the functions are pretty similar
 const generateSelectedDirectoriesHTML = (directories) => {
   let HTML = "";
   directories.forEach((directory) => {
@@ -180,34 +208,27 @@ var __webpack_exports__ = {};
   \**********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
-/* harmony import */ var _directories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./directories */ "./src/browser-js/directories.js");
-/* harmony import */ var _eventHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./eventHandler */ "./src/browser-js/eventHandler.js");
-/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./generator */ "./src/browser-js/generator.js");
+/* harmony import */ var _eventHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./eventHandler */ "./src/browser-js/eventHandler.js");
+/* eslint-disable no-shadow */
 
 
 
 
-
-// eslint-disable-next-line no-shadow
 const setupEventListeners = (dom) => {
   dom.selectDirectoryBtn.addEventListener("click", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.getDirectoryPath)();
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleSelectDirectoryClick)();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    _directories__WEBPACK_IMPORTED_MODULE_1__["default"].add(directoryPath);
-
-    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_3__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
-    dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleDirectoryPathRecieve)(directoryPath, dom);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_2__.getSearchResults)(_directories__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleSearchDirectoriesClick)();
   });
 
   window.api.receive("searchResults", (searchResults) => {
-    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_3__.generateSearchResultsHTML)(searchResults);
-    dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
+    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleSearchResultsRecieve)(searchResults, dom);
   });
 };
 

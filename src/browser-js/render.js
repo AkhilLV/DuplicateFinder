@@ -1,31 +1,28 @@
+/* eslint-disable no-shadow */
 import dom from "./dom";
-import directories from "./directories";
-import {
-  getDirectoryPath,
-  getSearchResults,
-} from "./eventHandler";
-import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "./generator";
 
-// eslint-disable-next-line no-shadow
+import {
+  handleSelectDirectoryClick,
+  handleSearchDirectoriesClick,
+  handleDirectoryPathRecieve,
+  handleSearchResultsRecieve,
+} from "./eventHandler";
+
 const setupEventListeners = (dom) => {
   dom.selectDirectoryBtn.addEventListener("click", () => {
-    getDirectoryPath();
+    handleSelectDirectoryClick();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    directories.add(directoryPath);
-
-    const HTML = generateSelectedDirectoriesHTML(directories);
-    dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
+    handleDirectoryPathRecieve(directoryPath, dom);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
-    getSearchResults(directories);
+    handleSearchDirectoriesClick();
   });
 
   window.api.receive("searchResults", (searchResults) => {
-    const HTML = generateSearchResultsHTML(searchResults);
-    dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
+    handleSearchResultsRecieve(searchResults, dom);
   });
 };
 

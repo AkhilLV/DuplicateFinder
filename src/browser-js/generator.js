@@ -1,4 +1,5 @@
 // maybe use reduce here?
+// the functions are pretty similar
 export const generateSelectedDirectoriesHTML = (directories) => {
   let HTML = "";
   directories.forEach((directory) => {
