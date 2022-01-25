@@ -16,12 +16,20 @@ const getSearchResults = (directories) => {
   window.api.send("getSearchResults", directories);
 };
 
+const deleteDuplicateImages = () => {
+  window.api.send("deleteDuplicateImages", null); // send (channel, data)
+};
+
 export const handleSelectDirectoryClick = () => {
   getDirectoryPath();
 };
 
 export const handleSearchDirectoriesClick = () => {
   getSearchResults(directories.getDirectories());
+};
+
+export const handleDeleteDuplicatesClick = () => {
+  deleteDuplicateImages();
 };
 
 export const handleDirectoryPathRecieve = (directoryPath, dom) => {

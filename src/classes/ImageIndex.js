@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { readdirSync, lstatSync, unlink } = require("fs");
 const { normalize } = require("path");
 
@@ -18,19 +19,25 @@ class ImageIndex {
 
   deleteDuplicateImages = () => {
     Object.keys(this.duplicateImages).forEach((imageName) => {
-      this.duplicateImages[imageName].forEach((index, imagePath) => {
-        if (index > 0) { // keep the first image
-          unlink(imagePath, (error) => {
-            // eslint-disable-next-line no-console
-            console.log(error);
-          });
-        }
+      this.duplicateImages[imageName].forEach((imagePath, index) => {
+        // if (index > 0) {
+        //   console.log("Running");
+        //   unlink(imagePath, (error) => {
+        //     if (error) {
+        //       console.log(error);
+        //     } else {
+        //       console.log("Deleted duplicates");
+        //     }
+        //   });
+        // }
       });
     });
   };
 
-  deleteDuplicateImage = (filePath) => {
-
+  deleteDuplicateImage = (imagePath) => {
+    // unlink(imagePath, (error) => {
+    //   console.log(error);
+    // });
   };
 
   indexFiles = (directory) => { // directory: string
@@ -52,5 +59,9 @@ class ImageIndex {
     });
   };
 }
+
+// const testInstance = new ImageIndex(["/home/akhil/Public/DuplicateTest"]);
+// console.log(testInstance.getDuplicateImages());
+// testInstance.deleteDuplicateImages();
 
 module.exports = ImageIndex;

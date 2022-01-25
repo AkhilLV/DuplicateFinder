@@ -60,3 +60,8 @@ ipcMain.on("getSearchResults", (event, directories) => {
 
   mainWindow.webContents.send("searchResults", index.getDuplicateImages());
 });
+
+ipcMain.on("deleteDuplicateImages", () => {
+  console.log("Deleted Duplicate Images");
+  mainWindow.webContents.send("deletedDuplicates", { message: "Deleted duplicates" });
+});
