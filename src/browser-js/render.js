@@ -1,38 +1,31 @@
 /* eslint-disable no-shadow */
 import dom from "./dom";
 
-import {
-  handleSelectDirectoryClick,
-  handleSearchDirectoriesClick,
-  handleDirectoryPathRecieve,
-  handleSearchResultsRecieve,
-  handleDeleteDuplicatesClick,
-  handleDeletedDuplicatesRecieve,
-} from "./eventHandler";
+import EventHandler from "./classes/EventHandler";
 
 const setupEventListeners = (dom) => {
   dom.selectDirectoryBtn.addEventListener("click", () => {
-    handleSelectDirectoryClick();
+    EventHandler.handleSelectDirectoryClick();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    handleDirectoryPathRecieve(directoryPath, dom);
+    EventHandler.handleDirectoryPathRecieve(directoryPath, dom);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
-    handleSearchDirectoriesClick();
+    EventHandler.handleSearchDirectoriesClick();
   });
 
   window.api.receive("searchResults", (searchResults) => {
-    handleSearchResultsRecieve(searchResults, dom);
+    EventHandler.handleSearchResultsRecieve(searchResults, dom);
   });
 
   dom.deleteDuplicatesBtn.addEventListener("click", () => {
-    handleDeleteDuplicatesClick();
+    EventHandler.handleDeleteDuplicatesClick();
   });
 
   window.api.receive("deletedDuplicates", () => {
-    handleDeletedDuplicatesRecieve();
+    EventHandler.handleDeletedDuplicatesRecieve();
   });
 };
 

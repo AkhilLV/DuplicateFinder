@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/browser-js/directories.js":
-/*!***************************************!*\
-  !*** ./src/browser-js/directories.js ***!
-  \***************************************/
+/***/ "./src/browser-js/classes/Directories.js":
+/*!***********************************************!*\
+  !*** ./src/browser-js/classes/Directories.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -25,6 +25,61 @@ class Directories {
 const directories = new Directories();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (directories);
+
+
+/***/ }),
+
+/***/ "./src/browser-js/classes/EventHandler.js":
+/*!************************************************!*\
+  !*** ./src/browser-js/classes/EventHandler.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Directories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Directories */ "./src/browser-js/classes/Directories.js");
+/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../generator */ "./src/browser-js/generator.js");
+
+
+
+class EventHandler {
+  static handleSelectDirectoryClick = () => {
+    window.api.send("getDirectoryPath", null);
+  };
+
+  static handleSearchDirectoriesClick = () => {
+    if (_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].size === 0) {
+      alert("Select directory(s) to search");
+      return;
+    }
+
+    window.api.send("getSearchResults", _Directories__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  };
+
+  static handleDeleteDuplicatesClick = () => {
+    window.api.send("deleteDuplicateImages", null);
+  };
+
+  static handleDirectoryPathRecieve = (directoryPath, dom) => {
+    _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
+
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
+    dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
+  };
+
+  static handleSearchResultsRecieve = (searchResults, dom) => {
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSearchResultsHTML)(searchResults);
+    dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
+  };
+
+  static handleDeletedDuplicatesRecieve = () => {
+    alert("Deleted duplicates");
+  };
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventHandler);
 
 
 /***/ }),
@@ -54,77 +109,6 @@ const dom = {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dom);
-
-
-/***/ }),
-
-/***/ "./src/browser-js/eventHandler.js":
-/*!****************************************!*\
-  !*** ./src/browser-js/eventHandler.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "handleSelectDirectoryClick": () => (/* binding */ handleSelectDirectoryClick),
-/* harmony export */   "handleSearchDirectoriesClick": () => (/* binding */ handleSearchDirectoriesClick),
-/* harmony export */   "handleDeleteDuplicatesClick": () => (/* binding */ handleDeleteDuplicatesClick),
-/* harmony export */   "handleDirectoryPathRecieve": () => (/* binding */ handleDirectoryPathRecieve),
-/* harmony export */   "handleSearchResultsRecieve": () => (/* binding */ handleSearchResultsRecieve),
-/* harmony export */   "handleDeletedDuplicatesRecieve": () => (/* binding */ handleDeletedDuplicatesRecieve)
-/* harmony export */ });
-/* harmony import */ var _directories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./directories */ "./src/browser-js/directories.js");
-/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generator */ "./src/browser-js/generator.js");
-
-
-
-// Handle events with a class
-const getDirectoryPath = () => {
-  window.api.send("getDirectoryPath", null); // send (channel, data)
-};
-
-// eslint-disable-next-line no-shadow
-const getSearchResults = (directories) => {
-  if (directories.size === 0) {
-    // eslint-disable-next-line no-alert
-    alert("Select directory(s) to search");
-    return;
-  }
-
-  window.api.send("getSearchResults", directories);
-};
-
-const deleteDuplicateImages = () => {
-  window.api.send("deleteDuplicateImages", null); // send (channel, data)
-};
-
-const handleSelectDirectoryClick = () => {
-  getDirectoryPath();
-};
-
-const handleSearchDirectoriesClick = () => {
-  getSearchResults(_directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
-};
-
-const handleDeleteDuplicatesClick = () => {
-  deleteDuplicateImages();
-};
-
-const handleDirectoryPathRecieve = (directoryPath, dom) => {
-  _directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
-
-  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
-  dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
-};
-
-const handleSearchResultsRecieve = (searchResults, dom) => {
-  const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSearchResultsHTML)(searchResults);
-  dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
-};
-
-const handleDeletedDuplicatesRecieve = () => {
-  alert("Deleted duplicates");
-};
 
 
 /***/ }),
@@ -234,7 +218,7 @@ var __webpack_exports__ = {};
   \**********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/browser-js/dom.js");
-/* harmony import */ var _eventHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./eventHandler */ "./src/browser-js/eventHandler.js");
+/* harmony import */ var _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./classes/EventHandler */ "./src/browser-js/classes/EventHandler.js");
 /* eslint-disable no-shadow */
 
 
@@ -242,27 +226,27 @@ __webpack_require__.r(__webpack_exports__);
 
 const setupEventListeners = (dom) => {
   dom.selectDirectoryBtn.addEventListener("click", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleSelectDirectoryClick)();
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSelectDirectoryClick();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleDirectoryPathRecieve)(directoryPath, dom);
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDirectoryPathRecieve(directoryPath, dom);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleSearchDirectoriesClick)();
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchDirectoriesClick();
   });
 
   window.api.receive("searchResults", (searchResults) => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleSearchResultsRecieve)(searchResults, dom);
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchResultsRecieve(searchResults, dom);
   });
 
   dom.deleteDuplicatesBtn.addEventListener("click", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleDeleteDuplicatesClick)();
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeleteDuplicatesClick();
   });
 
   window.api.receive("deletedDuplicates", () => {
-    (0,_eventHandler__WEBPACK_IMPORTED_MODULE_1__.handleDeletedDuplicatesRecieve)();
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeletedDuplicatesRecieve();
   });
 };
 
