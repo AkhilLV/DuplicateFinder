@@ -1,7 +1,7 @@
 const dom = {
   selectDirectoryBtn: document.getElementById("select-directory"),
   searchDirectoriesBtn: document.getElementById("search-directories"),
-  delteDuplicatesBtn: document.getElementById("delete-duplicates"),
+  deleteDuplicatesBtn: document.getElementById("delete-duplicates"),
   selectedDirectoriesDisplay: document.getElementById("selected-directories"),
   searchResultsDisplay: document.getElementById("search-results"),
 

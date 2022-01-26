@@ -1,6 +1,7 @@
 import directories from "./directories";
 import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "./generator";
 
+// Handle events with a class
 const getDirectoryPath = () => {
   window.api.send("getDirectoryPath", null); // send (channel, data)
 };
@@ -42,4 +43,8 @@ export const handleDirectoryPathRecieve = (directoryPath, dom) => {
 export const handleSearchResultsRecieve = (searchResults, dom) => {
   const HTML = generateSearchResultsHTML(searchResults);
   dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
+};
+
+export const handleDeletedDuplicatesRecieve = () => {
+  alert("Deleted duplicates");
 };

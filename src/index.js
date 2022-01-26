@@ -51,7 +51,9 @@ ipcMain.on("getDirectoryPath", async () => {
   });
 
   const directoryPath = files.filePaths[0];
-  mainWindow.webContents.send("directoryPath", directoryPath);
+  if (files.filePaths[0]) {
+    mainWindow.webContents.send("directoryPath", directoryPath);
+  }
 });
 
 ipcMain.on("getSearchResults", (event, directories) => {

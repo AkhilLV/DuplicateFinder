@@ -7,6 +7,7 @@ import {
   handleDirectoryPathRecieve,
   handleSearchResultsRecieve,
   handleDeleteDuplicatesClick,
+  handleDeletedDuplicatesRecieve,
 } from "./eventHandler";
 
 const setupEventListeners = (dom) => {
@@ -28,6 +29,10 @@ const setupEventListeners = (dom) => {
 
   dom.deleteDuplicatesBtn.addEventListener("click", () => {
     handleDeleteDuplicatesClick();
+  });
+
+  window.api.receive("deletedDuplicates", () => {
+    handleDeletedDuplicatesRecieve();
   });
 };
 
