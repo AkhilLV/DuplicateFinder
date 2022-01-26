@@ -2,6 +2,8 @@
 const { readdirSync, lstatSync, unlink } = require("fs");
 const { normalize } = require("path");
 
+const getFileSize = require("../helpers/getFileSize");
+
 class ImageIndex {
   constructor(directories) { // directories: array
     this.directories = directories;
@@ -46,7 +48,7 @@ class ImageIndex {
     files.forEach((file) => {
       const filePath = normalize(`${directory}/${file}`);
 
-      if (this.index[file]) {
+      if (this.index[file] && getFileSize(this.index[file][0]) === getFileSize(filePath)) {
         this.index[file].push(filePath);
         this.duplicateImages[file] = this.index[file];
       } else if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
