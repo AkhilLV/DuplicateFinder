@@ -2,7 +2,7 @@
 const { readdirSync, lstatSync, unlink } = require("fs");
 const { normalize } = require("path");
 
-const getFileSize = require("../helpers/getFileSize");
+const getFileSize = require("./helpers/getFileSize");
 
 class ImageIndex {
   constructor(directories) { // directories: array

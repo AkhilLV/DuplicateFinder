@@ -50,12 +50,12 @@ class EventHandler {
   };
 
   static handleSearchDirectoriesClick = () => {
-    if (_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].size === 0) {
+    if (_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories().size === 0) {
       alert("Select directory(s) to search");
       return;
     }
 
-    window.api.send("getSearchResults", _Directories__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    window.api.send("getSearchResults", _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
   };
 
   static handleDeleteDuplicatesClick = () => {

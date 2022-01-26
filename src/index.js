@@ -8,7 +8,7 @@ const {
 
 const { join } = require("path");
 
-const ImageIndex = require("./classes/ImageIndex");
+const ImageIndex = require("./ImageIndex");
 
 // eslint-disable-next-line global-require
 if (require("electron-squirrel-startup")) {

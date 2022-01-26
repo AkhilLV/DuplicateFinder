@@ -7,12 +7,12 @@ class EventHandler {
   };
 
   static handleSearchDirectoriesClick = () => {
-    if (directories.size === 0) {
+    if (directories.getDirectories().size === 0) {
       alert("Select directory(s) to search");
       return;
     }
 
-    window.api.send("getSearchResults", directories);
+    window.api.send("getSearchResults", directories.getDirectories());
   };
 
   static handleDeleteDuplicatesClick = () => {
