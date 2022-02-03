@@ -3,21 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./styles/index.css">
   </head>
   <body>
-    <p>1. User selects directories ✅</p>
-    <p>2. OnSearch => Search and return duplicates ✅</p>
-    <p>3. OnDelete => Delete all duplicates</p>
-    <p>4. OnDelete(path) => Delete specific image</p>
-
-    <div>
-      <button id="select-directory">Choose files</button>
-      <div id="selected-directories">
-
-      </div>
-      <br>
-      <button id="search-directories">Search</button><button id="delete-duplicates">Delete duplicates</button>
+    <div class="container">
+      <div>
+        <button id="select-directory">Choose files</button>
+        <p><strong>Selected Directories: </strong></p>
+        <div id="selected-directories">
+  
+        </div>
+        <br>
+        <button id="search-directories">Search</button><button id="delete-duplicates">Delete duplicates</button></div>
       <div id="search-results">
 
       </div>

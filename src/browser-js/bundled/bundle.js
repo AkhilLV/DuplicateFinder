@@ -19,12 +19,40 @@ class Directories {
 
   getDirectories = () => this.directories;
 
-  addDirectory = (directoryPath) => this.directories.add(directoryPath);
+  addDirectory = (directoryPath) => {
+    if (!this.isParentIncluded(directoryPath)) {
+      this.directories.add(directoryPath);
+    }
+  };
+
+  isParentIncluded = (directoryPath) => {
+    let isParentIncluded = false;
+
+    this.directories.forEach((directory) => {
+      const regex = new RegExp(directory);
+      if (directoryPath.match(regex)) {
+        isParentIncluded = true;
+      }
+    });
+
+    return isParentIncluded;
+  };
+
+  // isChildIncluded = (directoryPath) => {
+  //   let isChildIncluded = false;
+
+  //   this.directories.forEach((directory) => {
+  //     if ()
+  //   });
+  // }
 }
 
 const directories = new Directories();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (directories);
+
+// home/public/school
+// home/public/school/mech -> not allowed
 
 
 /***/ }),
@@ -62,6 +90,7 @@ class EventHandler {
     window.api.send("deleteDuplicateImages", null);
   };
 
+  // check if parent directory exists !!! Important
   static handleDirectoryPathRecieve = (directoryPath, dom) => {
     _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
 

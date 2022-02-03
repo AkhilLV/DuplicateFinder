@@ -1,3 +1,5 @@
+require('electron-reloader')(module);
+
 const {
   app,
   BrowserWindow,

@@ -1,6 +1,25 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+}
+
+button {
+  padding: 8px 10px;
+}
+
+.container #search-results .duplicate-image .image-name {
+  padding: 10px 0 10px 0;
+}
+
+.container #search-results .duplicate-image .image-path {
+  padding: 10px 0 10px 0;
+}
+
+.container #search-results .duplicate-image .image-path:hover {
+  background: rgb(235, 235, 235);
 }

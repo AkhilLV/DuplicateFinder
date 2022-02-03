@@ -19,6 +19,7 @@ class EventHandler {
     window.api.send("deleteDuplicateImages", null);
   };
 
+  // check if parent directory exists !!! Important
   static handleDirectoryPathRecieve = (directoryPath, dom) => {
     directories.addDirectory(directoryPath);
 
