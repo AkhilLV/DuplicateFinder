@@ -20,18 +20,11 @@ class Directories {
   getDirectories = () => this.directories;
 
   addDirectory = (directoryPath) => {
-    if (!this.isParentIncluded(directoryPath)) {
-      this.directories.add(directoryPath);
-    }
+    this.directories.add(directoryPath);
+  };
 
-    const [isChildIncluded, childDirectoryPaths] = this.isChildIncluded(directoryPath);
-
-    if (isChildIncluded) {
-      childDirectoryPaths.forEach((childDirectoryPath) => {
-        this.directories.delete(childDirectoryPath);
-        this.directories.add(directoryPath);
-      });
-    }
+  deleteDirectory = (directoryPath) => {
+    this.directories.delete(directoryPath);
   };
 
   isParentIncluded = (directoryPath) => {
@@ -52,26 +45,21 @@ class Directories {
     // eslint-disable-next-line max-len
     // if home/pictures/new-york is included, home/pictures is allowed after removing home/pictures/new-york, home/pictures/boston
 
-    let isChildIncluded = false;
     const childDirectoryPaths = [];
 
     this.directories.forEach((existingDirectory) => {
       if (existingDirectory.match(directoryPath) && existingDirectory !== directoryPath) {
-        isChildIncluded = true;
         childDirectoryPaths.push(existingDirectory);
       }
     });
 
-    return [isChildIncluded, childDirectoryPaths];
+    return childDirectoryPaths;
   };
 }
 
 const directories = new Directories();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (directories);
-
-// home/public/school
-// home/public/school/mech -> not allowed
 
 
 /***/ }),
@@ -87,7 +75,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Directories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Directories */ "./src/browser-js/classes/Directories.js");
-/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../generator */ "./src/browser-js/generator.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom */ "./src/browser-js/dom.js");
+/* harmony import */ var _generator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generator */ "./src/browser-js/generator.js");
+
 
 
 
@@ -106,20 +96,31 @@ class EventHandler {
   };
 
   static handleDeleteDuplicatesClick = () => {
-    window.api.send("deleteDuplicateImages", null);
+    window.api.send("deleteDuplicateImages", null); // (eventName, payload)
   };
 
-  // check if parent directory exists !!! Important
-  static handleDirectoryPathRecieve = (directoryPath, dom) => {
-    _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
+  static handleDirectoryPathRecieve = (directoryPath) => {
+    if (!_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].isParentIncluded(directoryPath)) {
+      _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
+    }
 
-    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSelectedDirectoriesHTML)(_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
-    dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
+    const childDirectoryPaths = _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].isChildIncluded(directoryPath);
+
+    if (childDirectoryPaths.length > 0) {
+      childDirectoryPaths.forEach((childDirectoryPath) => {
+        _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].deleteDirectory(childDirectoryPath);
+      });
+
+      _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
+    }
+
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_2__.generateSelectedDirectoriesHTML)(_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].clearAndInsertHTML(_dom__WEBPACK_IMPORTED_MODULE_1__["default"].selectedDirectoriesDisplay, HTML);
   };
 
-  static handleSearchResultsRecieve = (searchResults, dom) => {
-    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_1__.generateSearchResultsHTML)(searchResults);
-    dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
+  static handleSearchResultsRecieve = (searchResults) => {
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_2__.generateSearchResultsHTML)(searchResults);
+    _dom__WEBPACK_IMPORTED_MODULE_1__["default"].clearAndInsertHTML(_dom__WEBPACK_IMPORTED_MODULE_1__["default"].searchResultsDisplay, HTML);
   };
 
   static handleDeletedDuplicatesRecieve = () => {
@@ -272,24 +273,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const setupEventListeners = (dom) => {
-  dom.selectDirectoryBtn.addEventListener("click", () => {
+const setupEventListeners = () => {
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].selectDirectoryBtn.addEventListener("click", () => {
     _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSelectDirectoryClick();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDirectoryPathRecieve(directoryPath, dom);
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDirectoryPathRecieve(directoryPath);
   });
 
-  dom.searchDirectoriesBtn.addEventListener("click", () => {
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].searchDirectoriesBtn.addEventListener("click", () => {
     _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchDirectoriesClick();
   });
 
   window.api.receive("searchResults", (searchResults) => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchResultsRecieve(searchResults, dom);
+    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchResultsRecieve(searchResults);
   });
 
-  dom.deleteDuplicatesBtn.addEventListener("click", () => {
+  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].deleteDuplicatesBtn.addEventListener("click", () => {
     _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeleteDuplicatesClick();
   });
 
@@ -298,7 +299,7 @@ const setupEventListeners = (dom) => {
   });
 };
 
-setupEventListeners(_dom__WEBPACK_IMPORTED_MODULE_0__["default"]);
+setupEventListeners();
 
 })();
 

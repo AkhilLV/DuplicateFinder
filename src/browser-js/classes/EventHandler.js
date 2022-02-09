@@ -25,6 +25,16 @@ class EventHandler {
       directories.addDirectory(directoryPath);
     }
 
+    const childDirectoryPaths = directories.isChildIncluded(directoryPath);
+
+    if (childDirectoryPaths.length > 0) {
+      childDirectoryPaths.forEach((childDirectoryPath) => {
+        directories.deleteDirectory(childDirectoryPath);
+      });
+
+      directories.addDirectory(directoryPath);
+    }
+
     const HTML = generateSelectedDirectoriesHTML(directories.getDirectories());
     dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
   };

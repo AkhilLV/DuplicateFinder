@@ -6,14 +6,11 @@ class Directories {
   getDirectories = () => this.directories;
 
   addDirectory = (directoryPath) => {
-    const [isChildIncluded, childDirectoryPaths] = this.isChildIncluded(directoryPath);
+    this.directories.add(directoryPath);
+  };
 
-    if (isChildIncluded) {
-      childDirectoryPaths.forEach((childDirectoryPath) => {
-        this.directories.delete(childDirectoryPath);
-        this.directories.add(directoryPath);
-      });
-    }
+  deleteDirectory = (directoryPath) => {
+    this.directories.delete(directoryPath);
   };
 
   isParentIncluded = (directoryPath) => {
@@ -34,23 +31,18 @@ class Directories {
     // eslint-disable-next-line max-len
     // if home/pictures/new-york is included, home/pictures is allowed after removing home/pictures/new-york, home/pictures/boston
 
-    let isChildIncluded = false;
     const childDirectoryPaths = [];
 
     this.directories.forEach((existingDirectory) => {
       if (existingDirectory.match(directoryPath) && existingDirectory !== directoryPath) {
-        isChildIncluded = true;
         childDirectoryPaths.push(existingDirectory);
       }
     });
 
-    return [isChildIncluded, childDirectoryPaths];
+    return childDirectoryPaths;
   };
 }
 
 const directories = new Directories();
 
 export default directories;
-
-// home/public/school
-// home/public/school/mech -> not allowed
