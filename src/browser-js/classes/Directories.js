@@ -6,10 +6,6 @@ class Directories {
   getDirectories = () => this.directories;
 
   addDirectory = (directoryPath) => {
-    if (!this.isParentIncluded(directoryPath)) {
-      this.directories.add(directoryPath);
-    }
-
     const [isChildIncluded, childDirectoryPaths] = this.isChildIncluded(directoryPath);
 
     if (isChildIncluded) {

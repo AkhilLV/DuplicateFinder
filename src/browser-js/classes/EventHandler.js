@@ -1,4 +1,5 @@
 import directories from "./Directories";
+import dom from "../dom";
 import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "../generator";
 
 class EventHandler {
@@ -16,18 +17,19 @@ class EventHandler {
   };
 
   static handleDeleteDuplicatesClick = () => {
-    window.api.send("deleteDuplicateImages", null);
+    window.api.send("deleteDuplicateImages", null); // (eventName, payload)
   };
 
-  // check if parent directory exists !!! Important
-  static handleDirectoryPathRecieve = (directoryPath, dom) => {
-    directories.addDirectory(directoryPath);
+  static handleDirectoryPathRecieve = (directoryPath) => {
+    if (!directories.isParentIncluded(directoryPath)) {
+      directories.addDirectory(directoryPath);
+    }
 
     const HTML = generateSelectedDirectoriesHTML(directories.getDirectories());
     dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
   };
 
-  static handleSearchResultsRecieve = (searchResults, dom) => {
+  static handleSearchResultsRecieve = (searchResults) => {
     const HTML = generateSearchResultsHTML(searchResults);
     dom.clearAndInsertHTML(dom.searchResultsDisplay, HTML);
   };

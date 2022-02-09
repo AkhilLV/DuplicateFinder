@@ -3,13 +3,13 @@ import dom from "./dom";
 
 import EventHandler from "./classes/EventHandler";
 
-const setupEventListeners = (dom) => {
+const setupEventListeners = () => {
   dom.selectDirectoryBtn.addEventListener("click", () => {
     EventHandler.handleSelectDirectoryClick();
   });
 
   window.api.receive("directoryPath", (directoryPath) => {
-    EventHandler.handleDirectoryPathRecieve(directoryPath, dom);
+    EventHandler.handleDirectoryPathRecieve(directoryPath);
   });
 
   dom.searchDirectoriesBtn.addEventListener("click", () => {
@@ -17,7 +17,7 @@ const setupEventListeners = (dom) => {
   });
 
   window.api.receive("searchResults", (searchResults) => {
-    EventHandler.handleSearchResultsRecieve(searchResults, dom);
+    EventHandler.handleSearchResultsRecieve(searchResults);
   });
 
   dom.deleteDuplicatesBtn.addEventListener("click", () => {
@@ -29,4 +29,4 @@ const setupEventListeners = (dom) => {
   });
 };
 
-setupEventListeners(dom);
+setupEventListeners();
