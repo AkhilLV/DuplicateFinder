@@ -27,7 +27,7 @@ class Directories {
     return isParentIncluded;
   };
 
-  isChildIncluded = (directoryPath) => {
+  getIncludedChildDirectories = (directoryPath) => {
     // eslint-disable-next-line max-len
     // if home/pictures/new-york is included, home/pictures is allowed after removing home/pictures/new-york, home/pictures/boston
 

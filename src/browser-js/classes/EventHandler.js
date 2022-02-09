@@ -25,7 +25,7 @@ class EventHandler {
       directories.addDirectory(directoryPath);
     }
 
-    const childDirectoryPaths = directories.isChildIncluded(directoryPath);
+    const childDirectoryPaths = directories.getIncludedChildDirectories(directoryPath);
 
     if (childDirectoryPaths.length > 0) {
       childDirectoryPaths.forEach((childDirectoryPath) => {

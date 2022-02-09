@@ -41,7 +41,7 @@ class Directories {
     return isParentIncluded;
   };
 
-  isChildIncluded = (directoryPath) => {
+  getIncludedChildDirectories = (directoryPath) => {
     // eslint-disable-next-line max-len
     // if home/pictures/new-york is included, home/pictures is allowed after removing home/pictures/new-york, home/pictures/boston
 
@@ -104,7 +104,7 @@ class EventHandler {
       _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
     }
 
-    const childDirectoryPaths = _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].isChildIncluded(directoryPath);
+    const childDirectoryPaths = _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getIncludedChildDirectories(directoryPath);
 
     if (childDirectoryPaths.length > 0) {
       childDirectoryPaths.forEach((childDirectoryPath) => {
