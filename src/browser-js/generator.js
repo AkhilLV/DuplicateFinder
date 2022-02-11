@@ -3,7 +3,7 @@
 export const generateSelectedDirectoriesHTML = (directories) => {
   let HTML = "";
   directories.forEach((directory) => {
-    HTML += `<p>${directory}</p>`;
+    HTML += `<p class="selected-directory">${directory}</p>`;
   });
 
   return HTML;

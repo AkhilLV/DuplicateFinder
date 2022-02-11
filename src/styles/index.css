@@ -4,12 +4,40 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Arial";
+}
+
 .container {
   display: flex;
+  padding: 30px;
+  gap: 30px
 }
 
 button {
+  cursor: pointer;
   padding: 8px 10px;
+  transition: 150ms ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+#controller button#select-directory {
+  margin-bottom: 20px;
+}
+
+#controller #selected-directories{
+  margin-bottom: 20px;
+}
+
+#controller .selected-directory {
+  margin-bottom: 5px;
+}
+
+#controller h4 {
+  margin-bottom: 20px;
 }
 
 .container #search-results .duplicate-image .image-name {
