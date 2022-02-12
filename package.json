@@ -1,5 +1,5 @@
 {
-  "name": "duplicatefinderapp",
+  "name": "duplicatefinder",
   "productName": "duplicatefinder",
   "version": "1.0.0",
   "description": "Find and delete duplicate images across directories",
@@ -27,7 +27,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "duplicatefinderapp"
+            "name": "duplicatefinder"
           }
         },
         {
