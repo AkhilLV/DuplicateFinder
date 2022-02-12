@@ -1,4 +1,4 @@
-require('electron-reloader')(module);
+// require('electron-reloader')(module); // enables hot-reload
 
 const {
   app,
@@ -48,7 +48,7 @@ app.on("activate", () => {
 });
 
 ipcMain.on("getDirectoryPath", async () => {
-  const files = await dialog.showOpenDialog(mainWindow, { // files {cancelled, filePaths}
+  const files = await dialog.showOpenDialog(mainWindow, { // files: {cancelled, filePaths}
     properties: ["openDirectory"],
   });
 
@@ -58,14 +58,16 @@ ipcMain.on("getDirectoryPath", async () => {
   }
 });
 
+let index;
+
 ipcMain.on("getSearchResults", (event, directories) => {
   console.log(directories);
-  const index = new ImageIndex(directories);
+  index = new ImageIndex(directories);
 
   mainWindow.webContents.send("searchResults", index.getDuplicateImages());
 });
 
 ipcMain.on("deleteDuplicateImages", () => {
-  console.log("Deleted Duplicate Images");
+  index.deleteDuplicateImages();
   mainWindow.webContents.send("deletedDuplicates", { message: "Deleted duplicates" });
 });

@@ -34,6 +34,7 @@ class Directories {
 
     this.directories.forEach((existingDirectory) => {
       if (directoryPath.match(existingDirectory)) {
+        console.log("Parent included");
         isParentIncluded = true;
       }
     });

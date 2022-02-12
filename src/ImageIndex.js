@@ -22,24 +22,24 @@ class ImageIndex {
   deleteDuplicateImages = () => {
     Object.keys(this.duplicateImages).forEach((imageName) => {
       this.duplicateImages[imageName].forEach((imagePath, index) => {
-        // if (index > 0) {
-        //   console.log("Running");
-        //   unlink(imagePath, (error) => {
-        //     if (error) {
-        //       console.log(error);
-        //     } else {
-        //       console.log("Deleted duplicates");
-        //     }
-        //   });
-        // }
+        if (index > 0) { // keep the first duplicate image
+          console.log("Running");
+          unlink(imagePath, (error) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(`Deleted ${imagePath}`);
+            }
+          });
+        }
       });
     });
   };
 
   deleteDuplicateImage = (imagePath) => {
-    // unlink(imagePath, (error) => {
-    //   console.log(error);
-    // });
+    unlink(imagePath, (error) => {
+      console.log(error);
+    });
   };
 
   indexFiles = (directory) => { // directory: string
