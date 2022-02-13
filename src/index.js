@@ -1,4 +1,4 @@
-// require('electron-reloader')(module); // enables hot-reload
+require('electron-reloader')(module); // enables hot-reload
 
 const {
   app,
