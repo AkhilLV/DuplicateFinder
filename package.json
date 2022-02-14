@@ -1,7 +1,7 @@
 {
   "name": "duplicatefinder",
   "productName": "duplicatefinder",
-  "version": "1.0.0",
+  "version": "0.1",
   "description": "Find and delete duplicate images across directories",
   "main": "src/index.js",
   "scripts": {
