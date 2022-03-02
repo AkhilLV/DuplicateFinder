@@ -23,7 +23,6 @@ class ImageIndex {
     Object.keys(this.duplicateImages).forEach((imageName) => {
       this.duplicateImages[imageName].forEach((imagePath, index) => {
         if (index > 0) { // keep the first duplicate image
-          console.log("Running");
           unlink(imagePath, (error) => {
             if (error) {
               console.log(error);
