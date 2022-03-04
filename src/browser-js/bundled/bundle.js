@@ -14,17 +14,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class Directories {
   constructor() {
-    this.directories = new Set();
+    this.directoryPaths = new Set();
   }
 
-  getDirectories = () => this.directories;
+  getDirectories = () => this.directoryPaths;
 
   addDirectory = (directoryPath) => {
-    this.directories.add(directoryPath);
+    this.directoryPaths.add(directoryPath);
   };
 
   deleteDirectory = (directoryPath) => {
-    this.directories.delete(directoryPath);
+    this.directoryPaths.delete(directoryPath);
   };
 
   isParentIncluded = (directoryPath) => {
@@ -32,8 +32,8 @@ class Directories {
 
     let isParentIncluded = false;
 
-    this.directories.forEach((existingDirectory) => {
-      const regex = new RegExp(`${existingDirectory}(?=/)`);
+    this.directoryPaths.forEach((existingDirectoryPath) => {
+      const regex = new RegExp(`${existingDirectoryPath}(?=/)`);
 
       if (directoryPath.match(regex)) {
         isParentIncluded = true;
@@ -49,9 +49,9 @@ class Directories {
 
     const childDirectoryPaths = [];
 
-    this.directories.forEach((existingDirectory) => {
-      if (existingDirectory.match(directoryPath) && existingDirectory !== directoryPath) {
-        childDirectoryPaths.push(existingDirectory);
+    this.directoryPaths.forEach((existingDirectoryPath) => {
+      if (existingDirectoryPath.match(directoryPath) && existingDirectoryPath !== directoryPath) {
+        childDirectoryPaths.push(existingDirectoryPath);
       }
     });
 
