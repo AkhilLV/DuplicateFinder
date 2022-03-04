@@ -19,7 +19,9 @@ class Directories {
     let isParentIncluded = false;
 
     this.directories.forEach((existingDirectory) => {
-      if (directoryPath.match(existingDirectory)) {
+      const regex = new RegExp(`${existingDirectory}(?=/)`);
+
+      if (directoryPath.match(regex)) {
         isParentIncluded = true;
       }
     });

@@ -87,3 +87,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# Test Bench
+test_bench/
