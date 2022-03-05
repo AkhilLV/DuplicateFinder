@@ -13,3 +13,7 @@ const dom = {
 };
 
 export default dom;
+
+// Exported to:
+// classes/EventHandler.js
+// browser-js/render.js

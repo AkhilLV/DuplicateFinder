@@ -61,8 +61,4 @@ class ImageIndex {
   };
 }
 
-// const testInstance = new ImageIndex(["/home/akhil/Public/DuplicateTest"]);
-// console.log(testInstance.getDuplicateImages());
-// testInstance.deleteDuplicateImages();
-
 module.exports = ImageIndex;

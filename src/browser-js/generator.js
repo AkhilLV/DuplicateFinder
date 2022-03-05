@@ -24,3 +24,6 @@ export const generateSearchResultsHTML = (searchResults) => {
 
   return HTML;
 };
+
+// Exported to:
+// classes/EventHandler.js

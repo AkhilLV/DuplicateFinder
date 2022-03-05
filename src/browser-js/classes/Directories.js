@@ -50,3 +50,6 @@ class Directories {
 const directoryPaths = new Directories();
 
 export default directoryPaths;
+
+// Exported to:
+// 1. class/EventHandler.js

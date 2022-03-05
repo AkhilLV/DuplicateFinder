@@ -6,3 +6,6 @@ const getFileSize = (filePath) => {
 };
 
 module.exports = getFileSize;
+
+// Exported to:
+// src/ImageIndex.js

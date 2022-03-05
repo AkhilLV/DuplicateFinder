@@ -50,3 +50,6 @@ class EventHandler {
 }
 
 export default EventHandler;
+
+// Exported to:
+// browser-js/render.js
