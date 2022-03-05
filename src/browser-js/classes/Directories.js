@@ -35,8 +35,10 @@ class Directories {
 
     const childDirectoryPaths = [];
 
+    const regex = new RegExp(`${directoryPath}(?=/)`);
+
     this.directoryPaths.forEach((existingDirectoryPath) => {
-      if (existingDirectoryPath.match(directoryPath) && existingDirectoryPath !== directoryPath) {
+      if (existingDirectoryPath.match(regex)) {
         childDirectoryPaths.push(existingDirectoryPath);
       }
     });
