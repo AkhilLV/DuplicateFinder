@@ -3,13 +3,13 @@ class Directories {
     this.directoryPaths = new Set();
   }
 
-  getDirectories = () => this.directoryPaths;
+  getDirectoryPaths = () => this.directoryPaths;
 
-  addDirectory = (directoryPath) => {
+  addDirectoryPath = (directoryPath) => {
     this.directoryPaths.add(directoryPath);
   };
 
-  deleteDirectory = (directoryPath) => {
+  deleteDirectoryPath = (directoryPath) => {
     this.directoryPaths.delete(directoryPath);
   };
 
@@ -29,7 +29,7 @@ class Directories {
     return isParentIncluded;
   };
 
-  getIncludedChildDirectories = (directoryPath) => {
+  getIncludedChildDirectoryPaths = (directoryPath) => {
     // eslint-disable-next-line max-len
     // if home/pictures/new-york is included, home/pictures is allowed after removing home/pictures/new-york, home/pictures/boston
 
@@ -47,6 +47,6 @@ class Directories {
   };
 }
 
-const directories = new Directories();
+const directoryPaths = new Directories();
 
-export default directories;
+export default directoryPaths;

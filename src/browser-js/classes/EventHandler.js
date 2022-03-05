@@ -1,4 +1,4 @@
-import directories from "./Directories";
+import directoryPaths from "./Directories";
 import dom from "../dom";
 import { generateSelectedDirectoriesHTML, generateSearchResultsHTML } from "../generator";
 
@@ -8,12 +8,12 @@ class EventHandler {
   };
 
   static handleSearchDirectoriesClick = () => {
-    if (directories.getDirectories().size === 0) {
+    if (directoryPaths.getDirectoryPaths().size === 0) {
       alert("Select directory(s) to search");
       return;
     }
 
-    window.api.send("getSearchResults", directories.getDirectories());
+    window.api.send("getSearchResults", directoryPaths.getDirectoryPaths());
   };
 
   static handleDeleteDuplicatesClick = () => {
@@ -21,21 +21,21 @@ class EventHandler {
   };
 
   static handleDirectoryPathRecieve = (directoryPath) => {
-    if (!directories.isParentIncluded(directoryPath)) {
-      directories.addDirectory(directoryPath);
+    if (!directoryPaths.isParentIncluded(directoryPath)) {
+      directoryPaths.addDirectoryPath(directoryPath);
     }
 
-    const childDirectoryPaths = directories.getIncludedChildDirectories(directoryPath);
+    const childDirectoryPaths = directoryPaths.getIncludedChildDirectoryPaths(directoryPath);
 
     if (childDirectoryPaths.length > 0) {
       childDirectoryPaths.forEach((childDirectoryPath) => {
-        directories.deleteDirectory(childDirectoryPath);
+        directoryPaths.deleteDirectoryPath(childDirectoryPath);
       });
 
-      directories.addDirectory(directoryPath);
+      directoryPaths.addDirectoryPath(directoryPath);
     }
 
-    const HTML = generateSelectedDirectoriesHTML(directories.getDirectories());
+    const HTML = generateSelectedDirectoriesHTML(directoryPaths.getDirectoryPaths());
     dom.clearAndInsertHTML(dom.selectedDirectoriesDisplay, HTML);
   };
 

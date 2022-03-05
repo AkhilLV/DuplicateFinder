@@ -17,13 +17,13 @@ class Directories {
     this.directoryPaths = new Set();
   }
 
-  getDirectories = () => this.directoryPaths;
+  getDirectoryPaths = () => this.directoryPaths;
 
-  addDirectory = (directoryPath) => {
+  addDirectoryPath = (directoryPath) => {
     this.directoryPaths.add(directoryPath);
   };
 
-  deleteDirectory = (directoryPath) => {
+  deleteDirectoryPath = (directoryPath) => {
     this.directoryPaths.delete(directoryPath);
   };
 
@@ -43,7 +43,7 @@ class Directories {
     return isParentIncluded;
   };
 
-  getIncludedChildDirectories = (directoryPath) => {
+  getIncludedChildDirectoryPaths = (directoryPath) => {
     // eslint-disable-next-line max-len
     // if home/pictures/new-york is included, home/pictures is allowed after removing home/pictures/new-york, home/pictures/boston
 
@@ -61,9 +61,9 @@ class Directories {
   };
 }
 
-const directories = new Directories();
+const directoryPaths = new Directories();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (directories);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (directoryPaths);
 
 
 /***/ }),
@@ -91,12 +91,12 @@ class EventHandler {
   };
 
   static handleSearchDirectoriesClick = () => {
-    if (_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories().size === 0) {
+    if (_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectoryPaths().size === 0) {
       alert("Select directory(s) to search");
       return;
     }
 
-    window.api.send("getSearchResults", _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
+    window.api.send("getSearchResults", _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectoryPaths());
   };
 
   static handleDeleteDuplicatesClick = () => {
@@ -105,20 +105,20 @@ class EventHandler {
 
   static handleDirectoryPathRecieve = (directoryPath) => {
     if (!_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].isParentIncluded(directoryPath)) {
-      _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
+      _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectoryPath(directoryPath);
     }
 
-    const childDirectoryPaths = _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getIncludedChildDirectories(directoryPath);
+    const childDirectoryPaths = _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getIncludedChildDirectoryPaths(directoryPath);
 
     if (childDirectoryPaths.length > 0) {
       childDirectoryPaths.forEach((childDirectoryPath) => {
-        _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].deleteDirectory(childDirectoryPath);
+        _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].deleteDirectoryPath(childDirectoryPath);
       });
 
-      _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectory(directoryPath);
+      _Directories__WEBPACK_IMPORTED_MODULE_0__["default"].addDirectoryPath(directoryPath);
     }
 
-    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_2__.generateSelectedDirectoriesHTML)(_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectories());
+    const HTML = (0,_generator__WEBPACK_IMPORTED_MODULE_2__.generateSelectedDirectoriesHTML)(_Directories__WEBPACK_IMPORTED_MODULE_0__["default"].getDirectoryPaths());
     _dom__WEBPACK_IMPORTED_MODULE_1__["default"].clearAndInsertHTML(_dom__WEBPACK_IMPORTED_MODULE_1__["default"].selectedDirectoriesDisplay, HTML);
   };
 
