@@ -3,6 +3,7 @@ const { readdirSync, lstatSync, unlink } = require("fs");
 const { normalize } = require("path");
 
 const getFileSize = require("./helpers/getFileSize");
+const isImage = require("./helpers/isImage");
 
 class ImageIndex {
   constructor(directories) { // directories: array
@@ -50,7 +51,7 @@ class ImageIndex {
       if (this.index[file] && getFileSize(this.index[file][0]) === getFileSize(filePath)) {
         this.index[file].push(filePath);
         this.duplicateImages[file] = this.index[file];
-      } else if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
+      } else if (isImage(file)) {
         this.index[file] = [filePath];
       }
 
