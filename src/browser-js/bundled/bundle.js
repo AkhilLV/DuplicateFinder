@@ -290,33 +290,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const setupEventListeners = () => {
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].selectDirectoryBtn.addEventListener("click", () => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSelectDirectoryClick();
-  });
+_dom__WEBPACK_IMPORTED_MODULE_0__["default"].selectDirectoryBtn.addEventListener("click", () => {
+  _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSelectDirectoryClick();
+});
 
-  window.api.receive("directoryPath", (directoryPath) => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDirectoryPathRecieve(directoryPath);
-  });
+window.api.receive("directoryPath", (directoryPath) => {
+  _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDirectoryPathRecieve(directoryPath);
+});
 
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].searchDirectoriesBtn.addEventListener("click", () => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchDirectoriesClick();
-  });
+_dom__WEBPACK_IMPORTED_MODULE_0__["default"].searchDirectoriesBtn.addEventListener("click", () => {
+  _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchDirectoriesClick();
+});
 
-  window.api.receive("searchResults", (searchResults) => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchResultsRecieve(searchResults);
-  });
+window.api.receive("searchResults", (searchResults) => {
+  _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleSearchResultsRecieve(searchResults);
+});
 
-  _dom__WEBPACK_IMPORTED_MODULE_0__["default"].deleteDuplicatesBtn.addEventListener("click", () => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeleteDuplicatesClick();
-  });
+_dom__WEBPACK_IMPORTED_MODULE_0__["default"].deleteDuplicatesBtn.addEventListener("click", () => {
+  _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeleteDuplicatesClick();
+});
 
-  window.api.receive("deletedDuplicates", () => {
-    _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeletedDuplicatesRecieve();
-  });
-};
-
-setupEventListeners();
+window.api.receive("deletedDuplicates", () => {
+  _classes_EventHandler__WEBPACK_IMPORTED_MODULE_1__["default"].handleDeletedDuplicatesRecieve();
+});
 
 })();
 
