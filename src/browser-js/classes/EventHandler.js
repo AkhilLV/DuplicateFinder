@@ -8,10 +8,7 @@ class EventHandler {
   };
 
   static handleSearchDirectoriesClick = () => {
-    if (directoryPaths.getDirectoryPaths().size === 0) {
-      alert("Select directory(s) to search");
-      return;
-    }
+    if (directoryPaths.getDirectoryPaths().size === 0) return alert("Select directory(s) to search");
 
     window.api.send("getSearchResults", directoryPaths.getDirectoryPaths());
   };
@@ -27,7 +24,7 @@ class EventHandler {
 
     const childDirectoryPaths = directoryPaths.getIncludedChildDirectoryPaths(directoryPath);
 
-    if (childDirectoryPaths.length > 0) {
+    if (childDirectoryPaths.length) {
       childDirectoryPaths.forEach((childDirectoryPath) => {
         directoryPaths.deleteDirectoryPath(childDirectoryPath);
       });
